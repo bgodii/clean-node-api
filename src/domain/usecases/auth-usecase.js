@@ -5,6 +5,7 @@ module.exports = class AuthUseCase {
     if (!email) {
       throw new MissingParamError('email')
     }
+
     if (!password) {
       throw new MissingParamError('password')
     }
