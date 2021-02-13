@@ -28,7 +28,6 @@ describe('Auth UseCase', () => {
 
   test('Should call LoadUserByEmailRepository with correct email', async () => {
     const { sut, loadUserByEmailRepository } = makeSut()
-
     await sut.auth('any_email@mail.com', 'any_password')
     expect(loadUserByEmailRepository.email).toBe('any_email@mail.com')
   })
@@ -43,5 +42,11 @@ describe('Auth UseCase', () => {
     const sut = new AuthUseCase({})
     const promise = sut.auth('any_email@mail.com', 'any_password')
     expect(promise).rejects.toThrow(new InvalidParamError('loadUserByEmailRepository'))
+  })
+
+  test('Should return null if LoadUserByEmailRepository returns null', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth('invalid_email@mail.com', 'any_password')
+    expect(accessToken).toBe(null)
   })
 })
