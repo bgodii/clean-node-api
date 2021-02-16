@@ -33,4 +33,10 @@ describe('Token Generator', () => {
     const promise = sut.generate('any_id')
     expect(promise).rejects.toThrow(new MissingParamError('secret'))
   })
+
+  test('Should throw if no secret is provided', async () => {
+    const { sut } = makeSut()
+    const promise = sut.generate()
+    expect(promise).rejects.toThrow(new MissingParamError('id'))
+  })
 })
