@@ -1,4 +1,5 @@
 const TokenGenerator = require('./token-generator')
+const { MissingParamError } = require('../errors')
 const jwt = require('jsonwebtoken')
 
 const makeSut = () => {
@@ -25,5 +26,11 @@ describe('Token Generator', () => {
     await sut.generate('any_id')
     expect(jwt.id).toBe('any_id')
     expect(jwt.secret).toBe(sut.secret)
+  })
+
+  test('Should throw if no secret is provided', async () => {
+    const sut = new TokenGenerator()
+    const promise = sut.generate('any_id')
+    expect(promise).rejects.toThrow(new MissingParamError('secret'))
   })
 })
