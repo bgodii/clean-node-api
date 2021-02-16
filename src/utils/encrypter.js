@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 
 module.exports = class Encrypter {
-  async compare (value, hashedPValue) {
-    const isValid = await bcrypt.compare(value, hashedPValue)
+  async compare (value, hash) {
+    const isValid = await bcrypt.compare(value, hash)
     return isValid
   }
 }
